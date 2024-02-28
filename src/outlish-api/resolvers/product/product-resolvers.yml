@@ -1,0 +1,8 @@
+Query.getProducts:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 5
+        handler: "src/outlish-api/resolvers/product/get.handler"

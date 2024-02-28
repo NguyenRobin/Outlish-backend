@@ -1,0 +1,4 @@
+authorizer:
+  handler: src/outlish-api/functions/authorizer/authorizer.handler
+  name: outlish-authorizer-${sls:stage}
+  description: Authorizer for outlish API.

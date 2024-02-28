@@ -1,0 +1,19 @@
+name: Outlish_GraphQL_API
+
+authentication:
+  type: "AWS_LAMBDA"
+  config:
+    authorizerResultTtlInSeconds: 300
+    functionName: authorizer
+
+schema:
+  - src/outlish-api/schema/product.graphql
+
+resolvers:
+  - ${file(src/outlish-api/resolvers/product/product-resolvers.yml)}
+
+dataSources:
+  outlishTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: outlishTable
