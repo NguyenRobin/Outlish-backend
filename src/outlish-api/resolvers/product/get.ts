@@ -13,6 +13,7 @@ export const handler = async (): Promise<AllProducts | []> => {
     if (Items?.length === 0 || Items === undefined) {
       return [];
     } else {
+      console.log({ result: Items.length, products: Items });
       return { result: Items.length, products: Items } as AllProducts;
     }
   } catch (error) {
