@@ -1,0 +1,4 @@
+testData:
+  handler: src/outlish-api/functions/testData/create.handler
+  name: outlish-testData-${sls:stage}
+  description: Test data for outlish API

@@ -2,7 +2,7 @@ Resources:
   outlishTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: outlishTable
+      TableName: OutlishTable
       AttributeDefinitions:
         - AttributeName: "PK"
           AttributeType: "S"

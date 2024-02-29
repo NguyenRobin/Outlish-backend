@@ -1,10 +1,19 @@
 name: Outlish_GraphQL_API
 
+# Some routes should only be able to access as Admin (implementation later!)
+# authentication:
+#   type: "AWS_LAMBDA"
+#   config:
+#     authorizerResultTtlInSeconds: 300
+#     functionName: authorizer
+
+# Temporary authentication. customer should be able visit/ see products without authentication
 authentication:
-  type: "AWS_LAMBDA"
-  config:
-    authorizerResultTtlInSeconds: 300
-    functionName: authorizer
+  type: "API_KEY"
+
+apiKeys:
+  - name: ${env:API_KEY_NAME}
+    expiresAfter: ${env:API_KEY_EXPIRES_AFTER}
 
 schema:
   - src/outlish-api/schema/product.graphql
@@ -16,4 +25,4 @@ dataSources:
   outlishTable:
     type: AMAZON_DYNAMODB
     config:
-      tableName: outlishTable
+      tableName: ${env:OUTLISH_TABLE}

@@ -1,16 +1,15 @@
 import { db } from "@src/core-setup/services/db";
 
-// This function should return some dummy data like products later
-export const handler = async (event: any) => {
-  console.log("getProducts", event);
+// Currently returns test data
+export const handler = async () => {
   try {
-    const params = {
+    const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
-    };
-    const response = await db.scan(params);
+      KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
+      ExpressionAttributeValues: { ":PK": "Product", ":SK": "Product#" },
+    });
 
-    console.log("data", response.Items);
-    return response.Items;
+    return { result: Items?.length, products: Items };
   } catch (error) {
     console.log(error);
   }
