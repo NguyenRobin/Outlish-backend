@@ -28,4 +28,6 @@ appSync: ${file(src/outlish-api/appSync.yml)}
 
 resources: ${file(src/base-services/database/dynamoDB.yml)}
 
-functions: ${file(src/outlish-api/functions/authorizer/authorizer.yml)}
+functions:
+  - ${file(src/outlish-api/functions/authorizer/authorizer.yml)}
+  - ${file(src/outlish-api/functions/testData/testData.yml)}

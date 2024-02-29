@@ -1,17 +1,23 @@
 import { db } from "@src/core-setup/services/db";
+import { type AllProducts } from "@src/types/database";
 
-// This function should return some dummy data like products later
-export const handler = async (event: any) => {
-  console.log("getProducts", event);
+// Currently returns test data
+export const handler = async (): Promise<AllProducts | []> => {
   try {
-    const params = {
+    const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
-    };
-    const response = await db.scan(params);
+      KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
+      ExpressionAttributeValues: { ":PK": "Product", ":SK": "Product#" },
+    });
 
-    console.log("data", response.Items);
-    return response.Items;
+    if (Items?.length === 0 || Items === undefined) {
+      return [];
+    } else {
+      console.log({ result: Items.length, products: Items });
+      return { result: Items.length, products: Items } as AllProducts;
+    }
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };

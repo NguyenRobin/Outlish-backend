@@ -1,5 +1,4 @@
-// https://stackoverflow.com/questions/57804745/difference-between-aws-sdk-dynamodb-client-and-documentclient
-// https://www.juanrangel.com/articles/dynamodb-client-vs-document
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/
 // https://thomasstep.com/blog/how-to-use-the-dynamodb-document-client
 
 import { DynamoDB } from "@aws-sdk/client-dynamodb";

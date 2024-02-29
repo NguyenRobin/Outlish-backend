@@ -3,10 +3,20 @@ schema {
 }
 
 type Query {
-  getProducts: [Product]
+  getAllProducts: Result
 }
 
 type Product {
-  author: String
-  title: String
+  Name: String
+  Description: String
+  Price: Int
+  Inventory: Int
+  Image: String
+  Category: String
+  Id: String
+}
+
+type Result {
+  result: Int
+  products: [Product]
 }

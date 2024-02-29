@@ -1,4 +1,4 @@
-Query.getProducts:
+Query.getAllProducts:
   kind: UNIT
   dataSource:
     type: "AWS_LAMBDA"
