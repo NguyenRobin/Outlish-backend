@@ -3,7 +3,7 @@ schema {
 }
 
 type Query {
-  getAllProducts: Result
+  getAllProducts: AllProducts
 }
 
 type Product {
@@ -16,7 +16,7 @@ type Product {
   Id: String
 }
 
-type Result {
+type AllProducts {
   result: Int
   products: [Product]
 }

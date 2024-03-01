@@ -1,5 +1,5 @@
 Resources:
-  outlishTable:
+  OutlishTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: OutlishTable

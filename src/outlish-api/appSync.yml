@@ -19,7 +19,7 @@ schema:
   - src/outlish-api/schema/product.graphql
 
 resolvers:
-  - ${file(src/outlish-api/resolvers/product/product-resolvers.yml)}
+  - ${file(src/outlish-api/unit-resolvers/product/product-resolvers.yml)}
 
 dataSources:
   outlishTable:

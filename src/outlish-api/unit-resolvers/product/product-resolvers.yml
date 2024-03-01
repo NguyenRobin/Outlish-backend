@@ -5,4 +5,4 @@ Query.getAllProducts:
     config:
       function:
         timeout: 5
-        handler: "src/outlish-api/resolvers/product/get.handler"
+        handler: "src/outlish-api/unit-resolvers/product/get.handler"
