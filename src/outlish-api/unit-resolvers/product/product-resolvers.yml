@@ -4,5 +4,14 @@ Query.getAllProducts:
     type: "AWS_LAMBDA"
     config:
       function:
-        timeout: 5
+        timeout: 10
         handler: "src/outlish-api/unit-resolvers/product/get.handler"
+
+Query.getProduct:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/getProduct.handler"
