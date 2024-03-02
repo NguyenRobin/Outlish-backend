@@ -13,3 +13,7 @@ export type AllProducts = {
   result: number;
   products: Product[];
 };
+
+export type ID = {
+  id: string;
+};

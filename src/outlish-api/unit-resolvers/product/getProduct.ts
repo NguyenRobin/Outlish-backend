@@ -1,9 +1,9 @@
+import { AppSyncResolverHandler, AppSyncResolverEvent } from "aws-lambda";
 import { db } from "@src/core-setup/services/db";
-import { Product } from "@src/types/database";
-import { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-sdk";
+import type { ID, Product } from "@src/types/database";
 
-export const handler = async (
-  event: APIGatewayProxyEvent
+export const handler: AppSyncResolverHandler<ID, Product> = async (
+  event: AppSyncResolverEvent<ID>
 ): Promise<Product> => {
   try {
     console.log(event);

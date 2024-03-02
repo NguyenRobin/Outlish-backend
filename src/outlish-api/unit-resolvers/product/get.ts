@@ -1,5 +1,5 @@
 import { db } from "@src/core-setup/services/db";
-import { type AllProducts } from "@src/types/database";
+import type { AllProducts } from "@src/types/database";
 
 // Currently returns test data
 export const handler = async (): Promise<AllProducts | []> => {
