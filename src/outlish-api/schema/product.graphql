@@ -4,6 +4,7 @@ schema {
 
 type Query {
   getAllProducts: AllProducts
+  getProduct(id: ID!): Product
 }
 
 type Product {
