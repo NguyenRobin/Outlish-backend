@@ -15,3 +15,12 @@ Query.getProduct:
       function:
         timeout: 10
         handler: "src/outlish-api/unit-resolvers/product/getProduct.handler"
+
+Mutation.createProduct:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/create.handler"

@@ -1,4 +1,6 @@
 export type Product = {
+  PK?: string;
+  SK?: string;
   Name: string;
   EntityType: "Product";
   Description: string;

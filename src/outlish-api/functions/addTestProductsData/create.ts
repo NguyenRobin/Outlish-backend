@@ -2,14 +2,15 @@ import { db } from "@src/core-setup/services/db";
 
 // Test Data to play with for now.
 export const handler = async () => {
+  const id = generateId();
   try {
     await db.batchWrite({
       RequestItems: {
         OutlishTable: products.map((product) => ({
           PutRequest: {
             Item: {
-              PK: `Product#${generateId()}`,
-              SK: `Product#${generateId()}`,
+              PK: `Product#${id}`,
+              SK: `Product#${id}`,
               EntityType: "Product",
               Name: product.Name,
               Description: product.Description,
@@ -17,7 +18,7 @@ export const handler = async () => {
               Inventory: product.Inventory,
               Category: product.Category,
               Image: product.Image,
-              Id: generateId(),
+              Id: id,
             },
           },
         })),
@@ -127,6 +128,42 @@ const products = [
     Image: "https://example.com/camera.jpg",
     Category: "Electronics",
     Gender: null, // Cameras typically don't have gender specificity
+  },
+  {
+    Name: "Book",
+    Description: "An exciting novel about a dystopian future.",
+    Price: 199,
+    Inventory: 100,
+    Image: "https://example.com/book.jpg",
+    Category: "Books",
+    Gender: null, // Books typically don't have gender specificity
+  },
+  {
+    Name: "Men's Polo Shirt",
+    Description: "A classic polo shirt for men.",
+    Price: 299,
+    Inventory: 50,
+    Image: "https://example.com/mens_polo.jpg",
+    Category: "Tops",
+    Gender: "Men",
+  },
+  {
+    Name: "Women's Sundress",
+    Description: "A stylish sundress perfect for summer.",
+    Price: 399,
+    Inventory: 40,
+    Image: "https://example.com/sundress.jpg",
+    Category: "Dresses",
+    Gender: "Women",
+  },
+  {
+    Name: "Children's T-shirt",
+    Description: "A comfortable cotton t-shirt for kids.",
+    Price: 199,
+    Inventory: 60,
+    Image: "https://example.com/kids_tshirt.jpg",
+    Category: "Tops",
+    Gender: "Kids",
   },
 ];
 

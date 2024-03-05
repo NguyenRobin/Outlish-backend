@@ -1,10 +1,22 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
   getAllProducts: AllProducts
   getProduct(id: ID!): Product
+  getCategoryProducts(id: String): CategoryProducts
+}
+
+type Mutation {
+  createProduct(input: ProductInput): Boolean
+}
+
+type CategoryProducts {
+  Category: [Product]
+  SubCategory: [Product]
+  SubSubCategory: [Product]
 }
 
 type Product {
@@ -14,10 +26,25 @@ type Product {
   Inventory: Int
   Image: String
   Category: String
+  SubCategory: String
+  SubSubCategory: String
+  Section: String
   Id: String
 }
 
 type AllProducts {
   result: Int
   products: [Product]
+}
+
+input ProductInput {
+  Name: String
+  Description: String
+  Price: Int
+  Inventory: Int
+  Image: String
+  Category: String
+  SubCategory: String
+  SubSubCategory: String
+  Section: String
 }
