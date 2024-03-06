@@ -12,7 +12,7 @@ export const handler: AppSyncResolverHandler<ID, Product> = async (
     const { Item } = await db.get({
       TableName: process.env.OUTLISH_TABLE,
       Key: {
-        PK: "Product",
+        PK: `Product`,
         SK: `Product#${event.arguments.id}`,
       },
     });

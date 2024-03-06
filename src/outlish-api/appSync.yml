@@ -20,6 +20,7 @@ schema:
 
 resolvers:
   - ${file(src/outlish-api/unit-resolvers/product/product-resolvers.yml)}
+  - ${file(src/outlish-api/unit-resolvers/category/category-resolvers.yml)}
 
 dataSources:
   outlishTable:
