@@ -7,183 +7,33 @@ export const handler = async (event: any) => {
   try {
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
-      KeyConditionExpression: "PK = :PK",
+      KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
       ExpressionAttributeValues: {
         ":PK": `Category#${event.arguments.id}`,
+        ":SK": `Product#`,
       },
     });
-    console.log(Items);
-    if (Items?.length === 0 || Items === undefined) {
-      return [];
-    } else {
-      console.log({ result: Items.length, products: Items });
-      return { result: Items.length, products: Items };
+
+    if (!Items?.length || Items === undefined) {
+      throw new Error("no products");
     }
 
-    // const cat = [...products];
-    // const subCategory = products.filter((product) => product.SubCategory);
-    // const subSubCategory = products.filter((product) => product.SubSubCategory);
+    const SubCategory1 = Items?.filter((product) => product.SubCategory !== "");
+    const SubSubCategory2 = Items?.filter(
+      (product) => product.SubSubCategory !== ""
+    );
+
+    console.log("Items", Items);
+
+    const test = {
+      Category: event.arguments.id,
+      SubCategory: SubCategory1.map((item) => item),
+      SubSubCategory: SubSubCategory2.map((item) => item),
+    };
+    console.log(test);
+    return test;
   } catch (error) {
     console.log(error);
     throw error;
   }
 };
-
-const products = [
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "Product#52m26",
-    SubCategory: "fasinon sub",
-    Description: "2009 yehe",
-    PK: "Category#kläder",
-    Id: "52m26",
-    Category: "kläder",
-    EntityType: "Product",
-    Name: "rt-whirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "Product#c1n35",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "c1n35",
-    Category: "kläder",
-    EntityType: "Product",
-    Name: "trainingshirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "Product#jt9at",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "jt9at",
-    Category: "kläder",
-    EntityType: "Product",
-    Name: "hooide",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "Product#xyp36",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "xyp36",
-    Category: "kläder",
-    EntityType: "Product",
-    Name: "aa vi testar",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubCategory#fasinon sub#52m26",
-    SubCategory: "fasinon sub",
-    Description: "2009 yehe",
-    PK: "Category#kläder",
-    Id: "52m26",
-    Category: "kläder",
-    EntityType: "Subcategory",
-    Name: "rt-whirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubCategory#fasinon sub#c1n35",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "c1n35",
-    Category: "kläder",
-    EntityType: "Subcategory",
-    Name: "trainingshirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubCategory#fasinon sub#jt9at",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "jt9at",
-    Category: "kläder",
-    EntityType: "Subcategory",
-    Name: "hooide",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubCategory#fasinon sub#xyp36",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "xyp36",
-    Category: "kläder",
-    EntityType: "Subcategory",
-    Name: "aa vi testar",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubSubCategory#fashion sub sub#52m26",
-    SubCategory: "fasinon sub",
-    Description: "2009 yehe",
-    PK: "Category#kläder",
-    Id: "52m26",
-    Category: "kläder",
-    EntityType: "SubSubCategory",
-    Name: "rt-whirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubSubCategory#fashion sub sub#c1n35",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "c1n35",
-    Category: "kläder",
-    EntityType: "SubSubCategory",
-    Name: "trainingshirt",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubSubCategory#fashion sub sub#jt9at",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "jt9at",
-    Category: "kläder",
-    EntityType: "SubSubCategory",
-    Name: "hooide",
-  },
-  {
-    Inventory: 10,
-    Image: "img.jpg",
-    Price: 10,
-    SK: "SubSubCategory#fashion sub sub#xyp36",
-    SubCategory: "fasinon sub",
-    Description: "fuck",
-    PK: "Category#kläder",
-    Id: "xyp36",
-    Category: "kläder",
-    EntityType: "SubSubCategory",
-    Name: "aa vi testar",
-  },
-];
