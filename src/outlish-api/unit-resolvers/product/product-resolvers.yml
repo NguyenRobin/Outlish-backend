@@ -5,7 +5,7 @@ Query.getAllProducts:
     config:
       function:
         timeout: 10
-        handler: "src/outlish-api/unit-resolvers/product/get.handler"
+        handler: "src/outlish-api/unit-resolvers/product/getAllProducts.handler"
 
 Query.getProduct:
   kind: UNIT
@@ -23,4 +23,4 @@ Mutation.createProduct:
     config:
       function:
         timeout: 10
-        handler: "src/outlish-api/unit-resolvers/product/create.handler"
+        handler: "src/outlish-api/unit-resolvers/product/createProduct.handler"
