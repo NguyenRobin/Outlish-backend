@@ -1,21 +1,7 @@
 import { db } from "@src/core-setup/services/db";
 import { generateId } from "@src/core-setup/utils";
-import { Product } from "@src/types/database";
+import { ProductArgsInput } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
-
-type ProductArgsInput = {
-  input: {
-    Name: string;
-    Category: string;
-    SubCategory?: string;
-    SubSubCategory?: string;
-    Description: string;
-    Image: string;
-    Inventory: number;
-    Price: number;
-    Section?: "Mens" | "Womens" | "Kids";
-  };
-};
 
 export const handler: AppSyncResolverHandler<ProductArgsInput, any> = async (
   event: AppSyncResolverEvent<ProductArgsInput>
@@ -31,6 +17,9 @@ export const handler: AppSyncResolverHandler<ProductArgsInput, any> = async (
       SubCategory,
       SubSubCategory,
       Section,
+      Designer,
+      Seller,
+      Slug,
     } = event.arguments.input;
 
     const id = generateId();
@@ -58,6 +47,9 @@ export const handler: AppSyncResolverHandler<ProductArgsInput, any> = async (
                 Inventory,
                 Price,
                 Id: id,
+                Designer,
+                Seller,
+                Slug,
               },
             },
           },
@@ -77,6 +69,9 @@ export const handler: AppSyncResolverHandler<ProductArgsInput, any> = async (
                 Inventory,
                 Price,
                 Id: id,
+                Designer,
+                Seller,
+                Slug,
               },
             },
           },

@@ -1,0 +1,25 @@
+extend type Mutation {
+  createCategory(input: CreateCategoryInput): NewCategory
+}
+
+extend type Query {
+  getProductsByCategory(input: String): ProductsByCategory
+}
+
+input CreateCategoryInput {
+  Category: String
+  SubCategory: String
+  SubSubCategory: String
+}
+
+type NewCategory {
+  Category: String
+  SubCategory: String
+  SubSubCategory: String
+}
+
+type ProductsByCategory {
+  Category: String
+  SubCategory: [Product]
+  SubSubCategory: [Product]
+}

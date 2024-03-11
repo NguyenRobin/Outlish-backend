@@ -17,6 +17,7 @@ apiKeys:
 
 schema:
   - src/outlish-api/schema/product.graphql
+  - src/outlish-api/schema/category.graphql
 
 resolvers:
   - ${file(src/outlish-api/unit-resolvers/product/product-resolvers.yml)}

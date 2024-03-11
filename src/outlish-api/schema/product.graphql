@@ -6,46 +6,10 @@ schema {
 type Query {
   getAllProducts: AllProducts
   getProduct(id: ID!): Product
-  getCategoryProducts(id: String): ProductWithCategory
 }
 
 type Mutation {
   createProduct(input: ProductInput): Boolean
-}
-
-# type CategoryProducts {
-#   ProductWithCategory
-# }
-
-type SubCategory {
-  Name: String
-  Description: String
-  Price: Int
-  Inventory: Int
-  Image: String
-  Category: String
-  SubCategory: String
-  Section: String
-  Id: String
-}
-
-type SubSubCategory {
-  Name: String
-  Description: String
-  Price: Int
-  Inventory: Int
-  Image: String
-  Category: String
-  SubCategory: String
-  SubSubCategory: String
-  Section: String
-  Id: String
-}
-
-type ProductWithCategory {
-  Category: String
-  SubCategory: [SubCategory]
-  SubSubCategory: [SubSubCategory]
 }
 
 type Product {
@@ -59,6 +23,9 @@ type Product {
   SubSubCategory: String
   Section: String
   Id: String
+  Designer: String
+  Seller: String
+  Slug: String
 }
 
 type AllProducts {
@@ -67,13 +34,16 @@ type AllProducts {
 }
 
 input ProductInput {
-  Name: String
-  Description: String
-  Price: Int
-  Inventory: Int
-  Image: String
-  Category: String
+  Name: String!
+  Description: String!
+  Price: Int!
+  Inventory: Int!
+  Image: String!
+  Category: String!
   SubCategory: String
   SubSubCategory: String
   Section: String
+  Designer: String
+  Seller: String
+  Slug: String
 }
