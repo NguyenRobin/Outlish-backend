@@ -19,3 +19,20 @@ export type AllProducts = {
 export type ID = {
   id: string;
 };
+
+export type ProductArgsInput = {
+  input: {
+    Name: string;
+    Category: string;
+    SubCategory?: string;
+    SubSubCategory?: string;
+    Description: string;
+    Image: string;
+    Inventory: number;
+    Price: number;
+    Section?: string;
+    Designer: string;
+    Seller: string;
+    Slug: string;
+  };
+};

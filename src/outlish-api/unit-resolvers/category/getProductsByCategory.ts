@@ -9,7 +9,7 @@ export const handler = async (event: any) => {
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
       ExpressionAttributeValues: {
-        ":PK": `Category#${event.arguments.id}`,
+        ":PK": `Category#${event.arguments.input}`,
         ":SK": `Product#`,
       },
     });
@@ -26,7 +26,7 @@ export const handler = async (event: any) => {
     console.log("Items", Items);
 
     const test = {
-      Category: event.arguments.id,
+      Category: event.arguments.input,
       SubCategory: SubCategory1.map((item) => item),
       SubSubCategory: SubSubCategory2.map((item) => item),
     };

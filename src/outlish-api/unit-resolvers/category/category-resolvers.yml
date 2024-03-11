@@ -1,8 +1,17 @@
-Query.getCategoryProducts:
+Query.getProductsByCategory:
   kind: UNIT
   dataSource:
     type: "AWS_LAMBDA"
     config:
       function:
         timeout: 10
-        handler: "src/outlish-api/unit-resolvers/category/getCategoryProducts.handler"
+        handler: "src/outlish-api/unit-resolvers/category/getProductsByCategory.handler"
+
+Mutation.createCategory:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/category/createCategory.handler"
