@@ -1,22 +1,26 @@
 import { db } from "@src/core-setup/services/db";
+import type { CategoryArgsInput, Category } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
 
-export const handler: AppSyncResolverHandler<any, any> = async (
-  event: AppSyncResolverEvent<any>
-) => {
-  const { Category, SubCategory, SubSubCategory } = event.arguments.input;
+export const handler: AppSyncResolverHandler<
+  CategoryArgsInput,
+  Category
+> = async (
+  event: AppSyncResolverEvent<CategoryArgsInput>
+): Promise<Category> => {
+  const { category, subCategory, subSubCategory } = event.arguments.input;
 
-  if (!Category) {
+  if (!category) {
     throw new Error("A new category must have a category name");
   }
 
   try {
     const newCategory = {
-      PK: "Category",
-      SK: `Category#${Category}`,
-      Category,
-      SubCategory: SubCategory ? [SubCategory] : [],
-      SubSubCategory: SubSubCategory ? [SubSubCategory] : [],
+      PK: "category",
+      SK: `category#${category}`,
+      category,
+      subCategory: subCategory ? [subCategory] : [],
+      subSubCategory: subSubCategory ? [subSubCategory] : [],
     };
 
     await db.put({
@@ -30,15 +34,20 @@ export const handler: AppSyncResolverHandler<any, any> = async (
       },
     });
 
-    return newCategory;
+    return {
+      category: newCategory.category,
+      subCategory: newCategory?.subCategory,
+      subSubCategory: newCategory?.subSubCategory,
+    };
   } catch (error: any) {
     if (error.name === "ConditionalCheckFailedException") {
       return {
-        Category:
+        category:
           "ERROR: Category already exist, Create a new one or update the current one",
-        SubCategory: [],
-        SubSubCategory: [],
+        subCategory: [],
+        subSubCategory: [],
       };
     }
+    throw error;
   }
 };

@@ -3,48 +3,49 @@ extend type Mutation {
 }
 
 extend type Query {
-  getProductsByCategory(input: String): ProductsByCategory
+  getProductsByCategory(input: CategoryQuery): ProductsByCategoryResult
   getProductsBySubCategory(
-    input: inputCategoryAndSubCategory
-  ): SubCategoryResult
+    input: CategoryAndSubCategoryQuery
+  ): ProductsSubCategoryResult
   getAllCategories: [Category]
 }
 
-input inputCategoryAndSubCategory {
-  Category: String
-  SubCategory: String
+input CategoryAndSubCategoryQuery {
+  category: String
+  subCategory: String
 }
 
+# input structure client must use
 input CreateCategoryInput {
-  Category: String
-  SubCategory: String
-  SubSubCategory: String
+  category: String!
+  subCategory: String
+  subSubCategory: String
+}
+# input structure client must use
+input CategoryQuery {
+  category: String
 }
 
+# Result structure send back to client
 type Category {
-  Category: String
-  SubCategory: [String]
-  SubSubCategory: [String]
+  category: String
+  subCategory: [String]
+  subSubCategory: [String]
 }
 
-# type ProductsByCategory {
-#   Category: String
-#   SubCategory: [Product]
-#   SubSubCategory: [Product]
-# }
-
-type ProductsByCategory {
-  Category: String
-  SubCategory: SubCategoryResult
-  SubSubCategory: SubSubCategoryResult
-  AllProducts: [Product]
-}
-
-type SubCategoryResult {
+# Result structure send back to client
+type ProductsByCategoryResult {
   result: Int
   products: [Product]
 }
 
-type SubSubCategoryResult {
-  Products: [Product]
+# Result structure send back to client
+type ProductsSubCategoryResult {
+  result: Int
+  products: [Product]
+}
+# Result structure send back to client
+type ProductsSubSubCategoryResult {
+  result: Int
+  products: [Product]
 }
