@@ -1,9 +1,10 @@
 extend type Mutation {
-  createCategory(input: CreateCategoryInput): NewCategory
+  createCategory(input: CreateCategoryInput): Category
 }
 
 extend type Query {
   getProductsByCategory(input: String): ProductsByCategory
+  getAllCategories: [Category]
 }
 
 input CreateCategoryInput {
@@ -12,14 +13,29 @@ input CreateCategoryInput {
   SubSubCategory: String
 }
 
-type NewCategory {
+type Category {
   Category: String
-  SubCategory: String
-  SubSubCategory: String
+  SubCategory: [String]
+  SubSubCategory: [String]
 }
+
+# type ProductsByCategory {
+#   Category: String
+#   SubCategory: [Product]
+#   SubSubCategory: [Product]
+# }
 
 type ProductsByCategory {
   Category: String
-  SubCategory: [Product]
-  SubSubCategory: [Product]
+  SubCategory: SubCategoryResult
+  SubSubCategory: SubSubCategoryResult
+  AllProducts: [Product]
+}
+
+type SubCategoryResult {
+  Products: [Product]
+}
+
+type SubSubCategoryResult {
+  Products: [Product]
 }

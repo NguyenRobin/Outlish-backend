@@ -23,7 +23,6 @@ type Product {
   SubSubCategory: String
   Section: String
   Id: String
-  Designer: String
   Seller: String
   Slug: String
 }
@@ -43,7 +42,6 @@ input ProductInput {
   SubCategory: String
   SubSubCategory: String
   Section: String
-  Designer: String
   Seller: String
   Slug: String
 }
