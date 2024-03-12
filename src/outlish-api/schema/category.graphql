@@ -4,7 +4,15 @@ extend type Mutation {
 
 extend type Query {
   getProductsByCategory(input: String): ProductsByCategory
+  getProductsBySubCategory(
+    input: inputCategoryAndSubCategory
+  ): SubCategoryResult
   getAllCategories: [Category]
+}
+
+input inputCategoryAndSubCategory {
+  Category: String
+  SubCategory: String
 }
 
 input CreateCategoryInput {
@@ -33,7 +41,8 @@ type ProductsByCategory {
 }
 
 type SubCategoryResult {
-  Products: [Product]
+  result: Int
+  products: [Product]
 }
 
 type SubSubCategoryResult {
