@@ -11,9 +11,9 @@ export const handler: AppSyncResolverHandler<
 > = async (
   event: AppSyncResolverEvent<ProductArgsInput>
 ): Promise<AllProductsBySubCategory> => {
-  const { Category, SubCategory } = event.arguments.input;
+  const { category, subCategory } = event.arguments.input;
 
-  if (!Category || !SubCategory) {
+  if (!category || !subCategory) {
     throw new Error("Category and SubCategory must be included");
   }
 
@@ -21,14 +21,14 @@ export const handler: AppSyncResolverHandler<
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
-      FilterExpression: `#SubCategory = :SubCategory`,
+      FilterExpression: `#subCategory = :subCategory`,
       ExpressionAttributeNames: {
-        "#SubCategory": "SubCategory",
+        "#subCategory": "subCategory",
       },
       ExpressionAttributeValues: {
-        ":PK": `Category#${Category}`,
-        ":SK": "Product#",
-        ":SubCategory": `${SubCategory}`,
+        ":PK": `category#${category}`,
+        ":SK": "product#",
+        ":subCategory": `${subCategory}`,
       },
     });
 

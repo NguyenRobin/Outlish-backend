@@ -13,18 +13,18 @@ type Mutation {
 }
 
 type Product {
-  Name: String
-  Description: String
-  Price: Int
-  Inventory: Int
-  Image: String
-  Category: String
-  SubCategory: String
-  SubSubCategory: String
-  Section: String
-  Id: String
-  Seller: String
-  Slug: String
+  name: String
+  description: String
+  price: Int
+  inventory: Int
+  image: String
+  category: String
+  subCategory: String
+  subSubCategory: String
+  section: String
+  id: String
+  seller: String
+  slug: [String]
 }
 
 type AllProducts {
@@ -33,15 +33,15 @@ type AllProducts {
 }
 
 input ProductInput {
-  Name: String!
-  Description: String!
-  Price: Int!
-  Inventory: Int!
-  Image: String!
-  Category: String!
-  SubCategory: String
-  SubSubCategory: String
-  Section: String
-  Seller: String
-  Slug: String
+  name: String!
+  description: String!
+  price: Int!
+  inventory: Int!
+  image: String!
+  category: String!
+  subCategory: String
+  subSubCategory: String
+  section: String
+  seller: String
+  slug: String
 }
