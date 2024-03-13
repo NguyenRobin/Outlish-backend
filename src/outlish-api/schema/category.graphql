@@ -1,18 +1,19 @@
 extend type Mutation {
-  createCategory(input: CreateCategoryInput): Category
+  createCategory(input: CreateCategoryInput!): Category
 }
 
 extend type Query {
-  getProductsByCategory(input: CategoryQuery): ProductsByCategoryResult
+  getProductsByCategory(input: CategoryQuery!): ProductsByCategoryResult
   getProductsBySubCategory(
-    input: CategoryAndSubCategoryQuery
-  ): ProductsSubCategoryResult
+    input: CategoryAndSubCategoryQuery!
+  ): ProductsBySubCategoryResult
   getAllCategories: [Category]
 }
 
+# input structure client must use
 input CategoryAndSubCategoryQuery {
-  category: String
-  subCategory: String
+  category: String!
+  subCategory: String!
 }
 
 # input structure client must use
@@ -23,7 +24,7 @@ input CreateCategoryInput {
 }
 # input structure client must use
 input CategoryQuery {
-  category: String
+  category: String!
 }
 
 # Result structure send back to client
@@ -40,12 +41,12 @@ type ProductsByCategoryResult {
 }
 
 # Result structure send back to client
-type ProductsSubCategoryResult {
+type ProductsBySubCategoryResult {
   result: Int
   products: [Product]
 }
 # Result structure send back to client
-type ProductsSubSubCategoryResult {
+type ProductsBySubSubCategoryResult {
   result: Int
   products: [Product]
 }

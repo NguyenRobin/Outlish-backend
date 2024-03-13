@@ -1,9 +1,9 @@
 import { AppSyncResolverHandler, AppSyncResolverEvent } from "aws-lambda";
 import { db } from "@src/core-setup/services/db";
-import type { ID, Product } from "@src/types/database";
+import type { ArgsInputID, Product } from "@src/types/database";
 
-export const handler: AppSyncResolverHandler<ID, Product> = async (
-  event: AppSyncResolverEvent<ID>
+export const handler: AppSyncResolverHandler<ArgsInputID, Product> = async (
+  event: AppSyncResolverEvent<ArgsInputID>
 ): Promise<Product> => {
   try {
     const { id } = event.arguments;

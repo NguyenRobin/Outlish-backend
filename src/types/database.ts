@@ -15,6 +15,7 @@ export type Product = {
   id: string;
 };
 
+// data structure
 export type ProductByCategory = {
   PK?: string;
   SK?: string;
@@ -58,7 +59,7 @@ export type Category = {
 };
 
 // event.argument.id
-export type ID = {
+export type ArgsInputID = {
   id: string;
 };
 
