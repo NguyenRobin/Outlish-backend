@@ -12,7 +12,7 @@ type Mutation {
   createProduct(input: ProductInput!): Boolean
 }
 
-# structure
+# Object structure
 type Product {
   name: String
   description: String
@@ -25,7 +25,17 @@ type Product {
   section: String
   id: String
   seller: String
-  slug: [String]
+  slug: Slug
+}
+
+# Object structure
+type Slug {
+  name: String
+  category: String
+  subCategory: String
+  subSubCategory: String
+  description: String
+  seller: String
 }
 
 # Result structure send back to client

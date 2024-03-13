@@ -11,8 +11,17 @@ export type Product = {
   category: string;
   subCategory: string;
   subSubCategory?: string;
-  slug: string[];
+  slug: Slug[];
   id: string;
+};
+
+export type Slug = {
+  name: string;
+  category: string;
+  subCategory: string;
+  subSubCategory: string;
+  description: string;
+  seller: string;
 };
 
 // data structure
@@ -74,7 +83,6 @@ export type ProductArgsInput = {
     image?: string;
     inventory?: number;
     price?: number;
-    section?: string;
     seller?: string;
     slug?: string;
   };
