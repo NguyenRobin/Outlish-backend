@@ -9,9 +9,10 @@ type Query {
 }
 
 type Mutation {
-  createProduct(input: ProductInput): Boolean
+  createProduct(input: ProductInput!): Boolean
 }
 
+# structure
 type Product {
   name: String
   description: String
@@ -27,11 +28,13 @@ type Product {
   slug: [String]
 }
 
+# Result structure send back to client
 type AllProducts {
   result: Int
   products: [Product]
 }
 
+# input structure client must use
 input ProductInput {
   name: String!
   description: String!
@@ -43,5 +46,4 @@ input ProductInput {
   subSubCategory: String
   section: String
   seller: String
-  slug: String
 }
