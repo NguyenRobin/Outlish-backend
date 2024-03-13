@@ -36,11 +36,12 @@ export const handler: AppSyncResolverHandler<
     if (Items?.length === undefined) {
       throw new Error("No subCategories Items found");
     }
-
-    return {
+    const result = {
       result: Items.length,
       products: Items,
-    } as AllProductsBySubCategory;
+    };
+
+    return result as AllProductsBySubCategory;
   } catch (error) {
     console.log(error);
     throw error;

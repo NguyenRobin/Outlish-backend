@@ -1,6 +1,6 @@
 import { db } from "@src/core-setup/services/db";
-import { generateId } from "@src/core-setup/utils";
-import { ProductArgsInput } from "@src/types/database";
+import { generateId, slugifyString } from "@src/core-setup/utils";
+import type { ProductArgsInput, Slug } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
 
 export const handler: AppSyncResolverHandler<
@@ -17,9 +17,7 @@ export const handler: AppSyncResolverHandler<
       price,
       subCategory,
       subSubCategory,
-      section,
       seller,
-      slug,
     } = event.arguments.input;
 
     const id = generateId();
@@ -27,6 +25,15 @@ export const handler: AppSyncResolverHandler<
     if (!name || !category || !description || !image || !inventory || !price) {
       throw new Error("Properties missing");
     }
+
+    const slug = {
+      name: slugifyString(name),
+      category: slugifyString(category),
+      subCategory: subCategory ? slugifyString(subCategory) : "",
+      subSubCategory: subSubCategory ? slugifyString(subSubCategory) : "",
+      description: slugifyString(description),
+      seller: seller ? slugifyString(seller) : "",
+    };
 
     await db.batchWrite({
       RequestItems: {
@@ -40,7 +47,6 @@ export const handler: AppSyncResolverHandler<
                 category,
                 subCategory: subCategory ?? "",
                 subSubCategory: subSubCategory ?? "",
-                section: section ?? "",
                 name,
                 description,
                 image,
@@ -48,7 +54,7 @@ export const handler: AppSyncResolverHandler<
                 price,
                 id: id,
                 seller: seller ?? "",
-                slug: slug ? [slug] : [],
+                slug,
               },
             },
           },
@@ -61,7 +67,6 @@ export const handler: AppSyncResolverHandler<
                 category,
                 subCategory: subCategory ?? "",
                 subSubCategory: subSubCategory ?? "",
-                section: section ?? "",
                 name,
                 description,
                 image,
@@ -69,7 +74,7 @@ export const handler: AppSyncResolverHandler<
                 price,
                 id: id,
                 seller: seller ?? "",
-                slug: slug ? [slug] : [],
+                slug,
               },
             },
           },
