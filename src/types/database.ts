@@ -11,10 +11,11 @@ export type Product = {
   category: string;
   subCategory: string;
   subSubCategory?: string;
-  slug: Slug[];
+  slug: Slug;
   id: string;
 };
 
+// data structure
 export type Slug = {
   name: string;
   category: string;
