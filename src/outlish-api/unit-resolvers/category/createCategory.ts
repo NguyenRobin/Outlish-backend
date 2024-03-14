@@ -1,4 +1,5 @@
 import { db } from "@src/core-setup/services/db";
+import { slugifyString } from "@src/core-setup/utils";
 import type { CategoryArgsInput, Category } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
 
