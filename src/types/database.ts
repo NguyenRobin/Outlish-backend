@@ -63,9 +63,15 @@ export type AllProductsByCategory = {
 
 // response data
 export type Category = {
-  category: string;
-  subCategory?: string[];
-  subSubCategory?: string[];
+  name: string;
+  slug?: string;
+  subCategory?: [
+    {
+      name: string;
+      slug: string;
+      subSubCategory: [{ name: string; slug: string }];
+    }
+  ];
 };
 
 // event.argument.id

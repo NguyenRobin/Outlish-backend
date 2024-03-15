@@ -1,4 +1,5 @@
 import { db } from "@src/core-setup/services/db";
+import { slugifyString } from "@src/core-setup/utils";
 import type {
   AllProductsByCategory,
   CategoryArgsInput,
@@ -10,13 +11,13 @@ export const handler: AppSyncResolverHandler<
   AllProductsByCategory
 > = async (event: AppSyncResolverEvent<any>) => {
   console.log(event);
-  const { category } = event.arguments.input;
+  const { category } = event.arguments.input; // klader
   try {
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
       ExpressionAttributeValues: {
-        ":PK": `category#${category}`,
+        ":PK": `category#${category}`, // category#kläder
         ":SK": `product#`,
       },
     });
