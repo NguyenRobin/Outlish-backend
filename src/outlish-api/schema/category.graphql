@@ -7,7 +7,7 @@ extend type Query {
   getProductsBySubCategory(
     input: CategoryAndSubCategoryQuery!
   ): ProductsBySubCategoryResult
-  getAllCategories: [Category]
+  getAllCategories: [AllCategoriesResult]
 }
 
 # input structure client must use
@@ -32,6 +32,24 @@ type Category {
   category: String
   subCategory: [String]
   subSubCategory: [String]
+}
+
+type SubSubCategory {
+  name: String
+  slug: String
+}
+
+type SubCategory {
+  name: String
+  slug: String
+  subSubCategory: [SubSubCategory]
+}
+
+# Result structure send back to client
+type AllCategoriesResult {
+  name: String
+  slug: String
+  subCategory: [SubCategory]
 }
 
 # Result structure send back to client
