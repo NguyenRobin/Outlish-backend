@@ -25,6 +25,15 @@ Query.getAllCategories:
         timeout: 10
         handler: "src/outlish-api/unit-resolvers/category/getAllCategories.handler"
 
+Query.getCategory:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/category/getCategory.handler"
+
 Mutation.createCategory:
   kind: UNIT
   dataSource:

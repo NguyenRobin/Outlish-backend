@@ -8,6 +8,7 @@ extend type Query {
     input: CategoryAndSubCategoryQuery!
   ): ProductsBySubCategoryResult
   getAllCategories: [AllCategoriesResult]
+  getCategory(input: CategoryQuery): [AllCategoriesResult]
 }
 
 # input structure client must use
@@ -30,8 +31,8 @@ input CategoryQuery {
 # Result structure send back to client
 type Category {
   category: String
-  subCategory: [String]
-  subSubCategory: [String]
+  subCategory: String
+  subSubCategory: String
 }
 
 type SubSubCategory {
