@@ -42,6 +42,15 @@ export type ProductByCategory = {
   id: string;
 };
 
+// data structure
+export type NewCategory = {
+  PK?: string;
+  SK?: string;
+  category: string;
+  subCategory: string;
+  subSubCategory: string;
+};
+
 // response data
 export type AllProducts = {
   result: number;

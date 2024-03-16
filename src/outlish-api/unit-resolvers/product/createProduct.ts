@@ -45,8 +45,8 @@ export const handler: AppSyncResolverHandler<
                 SK: `product#${id}`,
                 entityType: "product",
                 category,
-                subCategory: subCategory ?? "",
-                subSubCategory: subSubCategory ?? "",
+                subCategory: slug.subCategory ?? "",
+                subSubCategory: slug.subSubCategory ?? "",
                 name,
                 description,
                 image,
@@ -61,12 +61,12 @@ export const handler: AppSyncResolverHandler<
           {
             PutRequest: {
               Item: {
-                PK: `category#${category}`,
+                PK: `category#${slug.category}`,
                 SK: `product#${id}`,
                 entityType: "category",
                 category,
-                subCategory: subCategory ?? "",
-                subSubCategory: subSubCategory ?? "",
+                subCategory: slug.subCategory ?? "",
+                subSubCategory: slug.subSubCategory ?? "",
                 name,
                 description,
                 image,

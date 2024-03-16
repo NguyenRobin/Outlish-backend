@@ -3,34 +3,35 @@ import { slugifyString } from "@src/core-setup/utils";
 import type { Category } from "@src/types/database";
 import { AppSyncResolverHandler } from "aws-lambda";
 
-export const handler: AppSyncResolverHandler<
-  Event,
-  Category[]
-> = async (): Promise<Category[]> => {
+export const handler: AppSyncResolverHandler<Event, Category[]> = async (
+  event: any
+): Promise<Category[]> => {
+  const { category, subCategory, subSubCategory } = event.arguments.input;
   try {
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
       ExpressionAttributeValues: {
         ":PK": "category",
-        ":SK": "category#",
+        ":SK": `category#${category}`,
       },
     });
     if (Items === undefined || !Items.length) {
       throw new Error("No Categories found");
     }
 
-    const categories = [];
+    const result = [];
 
     for (const item of Items) {
-      let category = categories.find((cat) => cat.name === item.category);
+      let category = result.find((cat) => cat.name === item.category);
+
       if (!category) {
         category = {
           name: item.category,
           slug: slugifyString(item.category),
           subCategory: [],
         };
-        categories.push(category);
+        result.push(category);
       }
 
       if (item.subCategory) {
@@ -59,8 +60,9 @@ export const handler: AppSyncResolverHandler<
         }
       }
     }
-    console.log(categories);
-    return categories as Category[];
+
+    console.log(result[0]);
+    return result[0];
   } catch (error) {
     console.log(error);
     throw error;
