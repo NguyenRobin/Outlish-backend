@@ -19,3 +19,7 @@ export function slugifyString(str: string): string {
 
   return slug;
 }
+
+export function firstLetterToUpperCase(str: string) {
+  return str[0].toUpperCase() + str.slice(1);
+}

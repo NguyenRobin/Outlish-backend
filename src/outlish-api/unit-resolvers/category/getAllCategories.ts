@@ -20,34 +20,46 @@ export const handler: AppSyncResolverHandler<
       throw new Error("No Categories found");
     }
 
-    // const categories = [];
+    const categories = [];
 
-    // for (let i = 0; i < Items.length; i++) {
-    //   console.log(Items[i].subSubCategory.map((subsub) => subsub));
+    for (const item of Items) {
+      let category = categories.find((cat) => cat.name === item.category);
+      if (!category) {
+        category = {
+          name: item.category,
+          slug: slugifyString(item.category),
+          subCategory: [],
+        };
+        categories.push(category);
+      }
 
-    //   const obj = {
-    //     name: Items[i].category,
-    //     slug: slugifyString(Items[i].category),
-    //     subCategory: [
-    //       {
-    //         name: Items[i].subCategory[0],
-    //         slug: slugifyString(Items[i].subCategory[0]),
-    //         subSubCategory: Items[i].subSubCategory.map((subsub) => {
-    //           return {
-    //             name: subsub,
-    //             slug: slugifyString(subsub),
-    //           };
-    //         }),
-    //       },
-    //     ],
-    //   };
-    //   categories.push(obj);
-    // }
+      if (item.subCategory) {
+        let subCategory = category.subCategory.find(
+          (subCat) => subCat.name === item.subCategory
+        );
+        if (!subCategory) {
+          subCategory = {
+            name: item.subCategory,
+            slug: slugifyString(item.subCategory),
+            subSubCategory: [],
+          };
+          category.subCategory.push(subCategory);
+        }
 
-    const categories = Items.map((item) => item.category);
-    const uniqueCategories = [...new Set(categories)];
-    console.log(uniqueCategories);
-    return Items;
+        const subSubCategory = {
+          name: item.subSubCategory,
+          slug: slugifyString(item.subSubCategory),
+        };
+        if (
+          !subCategory.subSubCategory.some(
+            (subSub) => subSub.name === subSubCategory.name
+          )
+        ) {
+          subCategory.subSubCategory.push(subSubCategory);
+        }
+      }
+    }
+    console.log(categories);
     return categories as Category[];
   } catch (error) {
     console.log(error);

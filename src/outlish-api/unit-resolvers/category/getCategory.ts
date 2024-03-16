@@ -19,59 +19,50 @@ export const handler: AppSyncResolverHandler<Event, Category[]> = async (
     if (Items === undefined || !Items.length) {
       throw new Error("No Categories found");
     }
-    console.log("✅", Items);
-    // const sub = Items.map((sub) => sub.subCategory).filter((sub) => sub !== "");
-    // const fitta = [...new Set(sub)];
-    // console.log(fitta);
-    const apa = Items.map((subsub) => {
-      return { name: subsub.subSubCategory };
-    });
 
-    console.log("apa", apa);
-    const sub = Items.map((sub) => {
-      return {
-        name: sub.category,
-        slug: slugifyString(sub.category),
-        subSubCategory: Items.filter((el) => {
-          if (el.subSubCategory !== "")
-            return {
-              name: el.subSubCategory,
-              slug: slugifyString(el.subSubCategory),
-            };
-        }),
-      };
-    });
-    // const fitta = [...new Set(sub)];
-    // console.log(fitta);
-    const categories = [];
-    console.log(sub[0].subSubCategory);
-    // for (let i = 0; i < Items.length; i++) {
-    // console.log(Items[i].subSubCategory.map((subsub) => subsub));
-    const obj = {
-      name: Items[0].category,
-      slug: slugifyString(Items[0].category),
-      subCategory: sub,
-      // [
-      // {
-      //   name: Items[i].subCategory,
-      //   slug: slugifyString(Items[i].subCategory),
-      //   subSubCategory: {
-      //     name: Items[i].subSubCategory,
-      //     slug: slugifyString(Items[i].subSubCategory),
-      //   },
-      // },
-      // ],
-    };
-    console.log(obj.subCategory[0].subSubCategory);
-    // categories.push(obj);
-    // }
+    const result = [];
 
-    // const categories = Items.map((item) => item.category);
-    // const uniqueCategories = [...new Set(categories)];
-    // console.log("Items", Items);
-    // console.log(categories);
-    return Items;
-    return categories as Category[];
+    for (const item of Items) {
+      let category = result.find((cat) => cat.name === item.category);
+
+      if (!category) {
+        category = {
+          name: item.category,
+          slug: slugifyString(item.category),
+          subCategory: [],
+        };
+        result.push(category);
+      }
+
+      if (item.subCategory) {
+        let subCategory = category.subCategory.find(
+          (subCat) => subCat.name === item.subCategory
+        );
+        if (!subCategory) {
+          subCategory = {
+            name: item.subCategory,
+            slug: slugifyString(item.subCategory),
+            subSubCategory: [],
+          };
+          category.subCategory.push(subCategory);
+        }
+
+        const subSubCategory = {
+          name: item.subSubCategory,
+          slug: slugifyString(item.subSubCategory),
+        };
+        if (
+          !subCategory.subSubCategory.some(
+            (subSub) => subSub.name === subSubCategory.name
+          )
+        ) {
+          subCategory.subSubCategory.push(subSubCategory);
+        }
+      }
+    }
+
+    console.log(result[0]);
+    return result[0];
   } catch (error) {
     console.log(error);
     throw error;
