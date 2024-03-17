@@ -1,4 +1,5 @@
 import { db } from "@src/core-setup/services/db";
+import { slugifyString } from "@src/core-setup/utils";
 import {
   AllProductsBySubCategory,
   ProductArgsInput,
@@ -21,12 +22,12 @@ export const handler: AppSyncResolverHandler<
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
-      FilterExpression: `#subCategory = :subCategory`,
+      FilterExpression: `slug.#subCategory = :subCategory`,
       ExpressionAttributeNames: {
         "#subCategory": "subCategory",
       },
       ExpressionAttributeValues: {
-        ":PK": `category#${category}`,
+        ":PK": `category#${slugifyString(category)}`,
         ":SK": "product#",
         ":subCategory": `${subCategory}`,
       },
