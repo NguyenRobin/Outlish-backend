@@ -24,6 +24,7 @@ export const handler: AppSyncResolverHandler<
 
     for (const item of Items) {
       let category = categories.find((cat) => cat.name === item.category);
+
       if (!category) {
         category = {
           name: item.category,
@@ -37,6 +38,7 @@ export const handler: AppSyncResolverHandler<
         let subCategory = category.subCategory.find(
           (subCat) => subCat.name === item.subCategory
         );
+
         if (!subCategory) {
           subCategory = {
             name: item.subCategory,
@@ -50,6 +52,7 @@ export const handler: AppSyncResolverHandler<
           name: item.subSubCategory,
           slug: slugifyString(item.subSubCategory),
         };
+
         if (
           !subCategory.subSubCategory.some(
             (subSub) => subSub.name === subSubCategory.name

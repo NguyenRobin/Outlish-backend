@@ -6,6 +6,10 @@ schema {
 type Query {
   getAllProducts: AllProducts
   getProduct(id: ID!): Product
+  getProductsByCategory(input: CategoryQuery!): ProductsByCategoryResult
+  getProductsBySubCategory(
+    input: CategoryAndSubCategoryQuery!
+  ): ProductsBySubCategoryResult
 }
 
 type Mutation {
@@ -56,4 +60,21 @@ input ProductInput {
   subSubCategory: String
   section: String
   seller: String
+}
+
+# Result structure send back to client
+type ProductsByCategoryResult {
+  result: Int
+  products: [Product]
+}
+
+# Result structure send back to client
+type ProductsBySubCategoryResult {
+  result: Int
+  products: [Product]
+}
+# Result structure send back to client
+type ProductsBySubSubCategoryResult {
+  result: Int
+  products: [Product]
 }

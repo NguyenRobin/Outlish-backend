@@ -74,13 +74,18 @@ export type AllProductsByCategory = {
 export type Category = {
   name: string;
   slug?: string;
-  subCategory?: [
-    {
-      name: string;
-      slug: string;
-      subSubCategory: [{ name: string; slug: string }];
-    }
-  ];
+  subCategory?: SubCategory[];
+};
+
+type SubCategory = {
+  name?: string;
+  slug?: string;
+  subSubCategory?: SubSubCategory[];
+};
+
+type SubSubCategory = {
+  name?: string;
+  slug?: string;
 };
 
 // event.argument.id

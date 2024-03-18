@@ -3,10 +3,6 @@ extend type Mutation {
 }
 
 extend type Query {
-  getProductsByCategory(input: CategoryQuery!): ProductsByCategoryResult
-  getProductsBySubCategory(
-    input: CategoryAndSubCategoryQuery!
-  ): ProductsBySubCategoryResult
   getAllCategories: [AllCategoriesResult]
   getCategory(input: CategoryQuery!): CategoryResult
 }
@@ -59,21 +55,4 @@ type CategoryResult {
   name: String
   slug: String
   subCategory: [SubCategory]
-}
-
-# Result structure send back to client
-type ProductsByCategoryResult {
-  result: Int
-  products: [Product]
-}
-
-# Result structure send back to client
-type ProductsBySubCategoryResult {
-  result: Int
-  products: [Product]
-}
-# Result structure send back to client
-type ProductsBySubSubCategoryResult {
-  result: Int
-  products: [Product]
 }

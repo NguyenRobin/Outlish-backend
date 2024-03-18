@@ -3,9 +3,9 @@ import { slugifyString } from "@src/core-setup/utils";
 import type { Category } from "@src/types/database";
 import { AppSyncResolverHandler } from "aws-lambda";
 
-export const handler: AppSyncResolverHandler<Event, Category[]> = async (
+export const handler: AppSyncResolverHandler<Event, Category> = async (
   event: any
-): Promise<Category[]> => {
+): Promise<Category> => {
   const { category, subCategory, subSubCategory } = event.arguments.input;
   try {
     const { Items } = await db.query({
@@ -20,10 +20,10 @@ export const handler: AppSyncResolverHandler<Event, Category[]> = async (
       throw new Error("No Categories found");
     }
 
-    const result = [];
+    const categoryResult: Category[] = [];
 
     for (const item of Items) {
-      let category = result.find((cat) => cat.name === item.category);
+      let category = categoryResult.find((cat) => cat.name === item.category);
 
       if (!category) {
         category = {
@@ -31,38 +31,41 @@ export const handler: AppSyncResolverHandler<Event, Category[]> = async (
           slug: slugifyString(item.category),
           subCategory: [],
         };
-        result.push(category);
+        categoryResult.push(category);
       }
 
       if (item.subCategory) {
-        let subCategory = category.subCategory.find(
+        let subCategory = category?.subCategory?.find(
           (subCat) => subCat.name === item.subCategory
         );
+
         if (!subCategory) {
           subCategory = {
             name: item.subCategory,
             slug: slugifyString(item.subCategory),
             subSubCategory: [],
           };
-          category.subCategory.push(subCategory);
+
+          category?.subCategory?.push(subCategory);
         }
 
         const subSubCategory = {
           name: item.subSubCategory,
           slug: slugifyString(item.subSubCategory),
         };
+
         if (
-          !subCategory.subSubCategory.some(
+          !subCategory?.subSubCategory?.some(
             (subSub) => subSub.name === subSubCategory.name
           )
         ) {
-          subCategory.subSubCategory.push(subSubCategory);
+          subCategory?.subSubCategory?.push(subSubCategory);
         }
       }
     }
 
-    console.log(result[0]);
-    return result[0];
+    console.log(categoryResult[0]);
+    return categoryResult[0];
   } catch (error) {
     console.log(error);
     throw error;
