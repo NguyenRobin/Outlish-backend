@@ -22,21 +22,16 @@ input CreateCategoryInput {
 # input structure client must use
 input CategoryQuery {
   category: String!
-}
-
-# Result structure send back to client
-type Category {
-  category: String
   subCategory: String
   subSubCategory: String
 }
 
-# build up structure
+# Object structure
 type SubSubCategory {
   name: String
   slug: String
 }
-# build up structure
+# Object structure
 type SubCategory {
   name: String
   slug: String
@@ -55,4 +50,11 @@ type CategoryResult {
   name: String
   slug: String
   subCategory: [SubCategory]
+}
+
+# Result structure send back to client
+type Category {
+  category: String
+  subCategory: String
+  subSubCategory: String
 }

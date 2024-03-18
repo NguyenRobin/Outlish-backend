@@ -25,15 +25,6 @@ Query.getProductsByCategory:
         timeout: 10
         handler: "src/outlish-api/unit-resolvers/product/getProductsByCategory.handler"
 
-Query.getProductsBySubCategory:
-  kind: UNIT
-  dataSource:
-    type: "AWS_LAMBDA"
-    config:
-      function:
-        timeout: 10
-        handler: "src/outlish-api/unit-resolvers/product/getProductsBySubCategory.handler"
-
 Mutation.createProduct:
   kind: UNIT
   dataSource:
