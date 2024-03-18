@@ -7,9 +7,6 @@ type Query {
   getAllProducts: AllProducts
   getProduct(id: ID!): Product
   getProductsByCategory(input: CategoryQuery!): ProductsByCategoryResult
-  getProductsBySubCategory(
-    input: CategoryAndSubCategoryQuery!
-  ): ProductsBySubCategoryResult
 }
 
 type Mutation {
@@ -42,12 +39,6 @@ type Slug {
   seller: String
 }
 
-# Result structure send back to client
-type AllProducts {
-  result: Int
-  products: [Product]
-}
-
 # input structure client must use
 input ProductInput {
   name: String!
@@ -63,18 +54,13 @@ input ProductInput {
 }
 
 # Result structure send back to client
-type ProductsByCategoryResult {
+type AllProducts {
   result: Int
   products: [Product]
 }
 
 # Result structure send back to client
-type ProductsBySubCategoryResult {
-  result: Int
-  products: [Product]
-}
-# Result structure send back to client
-type ProductsBySubSubCategoryResult {
+type ProductsByCategoryResult {
   result: Int
   products: [Product]
 }

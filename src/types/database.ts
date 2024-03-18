@@ -58,13 +58,7 @@ export type AllProducts = {
 };
 
 // response data
-export type AllProductsBySubCategory = {
-  result: number;
-  products: ProductByCategory[];
-};
-
-// response data
-export type AllProductsByCategory = {
+export type ProductsByCategory = {
   category: string;
   result: number;
   products: Product[];
@@ -80,7 +74,7 @@ export type Category = {
 type SubCategory = {
   name?: string;
   slug?: string;
-  subSubCategory?: SubSubCategory[];
+  subSubCategory?: SubSubCategory;
 };
 
 type SubSubCategory = {
