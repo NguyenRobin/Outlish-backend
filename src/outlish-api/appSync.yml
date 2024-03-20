@@ -18,10 +18,12 @@ apiKeys:
 schema:
   - src/outlish-api/schema/product.graphql
   - src/outlish-api/schema/category.graphql
+  - src/outlish-api/schema/image.graphql
 
 resolvers:
   - ${file(src/outlish-api/unit-resolvers/product/product-resolvers.yml)}
   - ${file(src/outlish-api/unit-resolvers/category/category-resolvers.yml)}
+  - ${file(src/outlish-api/unit-resolvers/image/image-resolvers.yml)}
 
 dataSources:
   outlishTable:

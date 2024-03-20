@@ -6,6 +6,7 @@ export const handler: AppSyncResolverHandler<ArgsInputID, Product> = async (
   event: AppSyncResolverEvent<ArgsInputID>
 ): Promise<Product> => {
   try {
+    console.log(event);
     const { id } = event.arguments;
 
     const { Item } = await db.get({
