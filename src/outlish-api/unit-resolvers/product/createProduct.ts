@@ -2,6 +2,7 @@ import { db } from "@src/core-setup/services/db";
 import { generateId, slugifyString } from "@src/core-setup/utils";
 import type { ProductArgsInput, Slug } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
+import { addResizeImagesToS3Bucket } from "../image/createImage";
 
 export const handler: AppSyncResolverHandler<
   ProductArgsInput,
@@ -20,12 +21,14 @@ export const handler: AppSyncResolverHandler<
       seller,
     } = event.arguments.input;
 
-    const id = generateId();
+    const id = generateId(4);
 
     if (!name || !category || !description || !image || !inventory || !price) {
       throw new Error("Properties missing");
     }
 
+    const test = await addResizeImagesToS3Bucket(image, name);
+    console.log("test from createProduct", test);
     const slug = {
       name: slugifyString(name),
       category: slugifyString(category),
@@ -49,7 +52,7 @@ export const handler: AppSyncResolverHandler<
                 subSubCategory: subSubCategory ?? "",
                 name,
                 description,
-                image,
+                image: test,
                 inventory,
                 price,
                 id: id,
@@ -69,7 +72,7 @@ export const handler: AppSyncResolverHandler<
                 subSubCategory: subSubCategory ?? "",
                 name,
                 description,
-                image,
+                image: test,
                 inventory,
                 price,
                 id: id,

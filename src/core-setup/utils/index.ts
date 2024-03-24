@@ -1,4 +1,4 @@
-export function generateId(len = 5) {
+export function generateId(len = 8) {
   let id = "";
   let chars = "abcdefghijklmnopqrstuvqxyz1234567890";
   for (let i = 0; i < len; i++) {

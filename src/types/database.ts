@@ -7,12 +7,21 @@ export type Product = {
   description: string;
   price: number;
   inventory: number;
-  image: string;
+  image: Images;
   category: string;
   subCategory: string;
   subSubCategory?: string;
   slug: Slug;
   id: string;
+};
+
+// data structure response
+type Images = {
+  image_xs: string;
+  image_small: string;
+  image_medium: string;
+  image_large: string;
+  image_original: string;
 };
 
 // data structure

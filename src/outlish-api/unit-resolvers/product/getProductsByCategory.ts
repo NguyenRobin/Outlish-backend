@@ -52,13 +52,15 @@ export const handler: AppSyncResolverHandler<
       const { Items } = await db.query({
         TableName: process.env.OUTLISH_TABLE,
         KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
-        FilterExpression: `slug.#subSubCategory = :subSubCategory`,
+        FilterExpression: `slug.#subCategory = :subCategory AND slug.#subSubCategory = :subSubCategory`,
         ExpressionAttributeNames: {
+          "#subCategory": "subCategory",
           "#subSubCategory": "subSubCategory",
         },
         ExpressionAttributeValues: {
           ":PK": `category#${slugifyString(category)}`,
           ":SK": "product#",
+          ":subCategory": `${subCategory}`,
           ":subSubCategory": `${subSubCategory}`,
         },
       });
@@ -70,6 +72,8 @@ export const handler: AppSyncResolverHandler<
       result: products.length,
       products: products,
     };
+
+    console.log(result);
 
     return result;
   } catch (error) {

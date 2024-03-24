@@ -1,4 +1,0 @@
-addTestProductsData:
-  handler: src/outlish-api/functions/addTestProductsData/create.handler
-  name: outlish-addTestProductsData-${sls:stage}
-  description: Test data for outlish API

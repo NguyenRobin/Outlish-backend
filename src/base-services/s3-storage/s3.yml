@@ -1,15 +1,5 @@
 Resources:
   S3Bucket:
     Type: "AWS::S3::Bucket"
-    DeletionPolicy: Retain
     Properties:
       BucketName: ${env:AWS_S3_BUCKET}
-      AccessControl: PublicRead
-      CorsConfiguration:
-        CorsRules:
-          - AllowedHeaders:
-              - "*"
-            AllowedMethods:
-              - GET
-            AllowedOrigins:
-              - "*"
