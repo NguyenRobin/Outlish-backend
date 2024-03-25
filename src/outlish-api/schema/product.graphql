@@ -1,12 +1,74 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
-  getProducts: [Product]
+  getAllProducts: AllProducts
+  getProduct(id: ID!): Product
+  getProductsByCategory(input: CategoryQuery!): ProductsByCategoryResult
 }
 
+type Mutation {
+  createProduct(input: ProductInput!): Boolean
+}
+
+# Object structure
 type Product {
-  author: String
-  title: String
+  name: String
+  description: String
+  price: Int
+  inventory: Int
+  image: Images
+  category: String
+  subCategory: String
+  subSubCategory: String
+  id: String
+  seller: String
+  slug: Slug
+}
+
+# Object structure
+type Images {
+  image_xs: String
+  image_small: String
+  image_medium: String
+  image_large: String
+  image_original: String
+}
+
+# Object structure
+type Slug {
+  name: String
+  category: String
+  subCategory: String
+  subSubCategory: String
+  description: String
+  seller: String
+}
+
+# input structure client must use
+input ProductInput {
+  name: String!
+  description: String!
+  price: Int!
+  inventory: Int!
+  image: String!
+  category: String!
+  subCategory: String
+  subSubCategory: String
+  section: String
+  seller: String
+}
+
+# Result structure send back to client
+type AllProducts {
+  result: Int
+  products: [Product]
+}
+
+# Result structure send back to client
+type ProductsByCategoryResult {
+  result: Int
+  products: [Product]
 }

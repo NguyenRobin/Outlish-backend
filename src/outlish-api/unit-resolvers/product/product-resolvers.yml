@@ -1,0 +1,35 @@
+Query.getAllProducts:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/getAllProducts.handler"
+
+Query.getProduct:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/getProduct.handler"
+
+Query.getProductsByCategory:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/getProductsByCategory.handler"
+
+Mutation.createProduct:
+  kind: UNIT
+  dataSource:
+    type: "AWS_LAMBDA"
+    config:
+      function:
+        timeout: 10
+        handler: "src/outlish-api/unit-resolvers/product/createProduct.handler"

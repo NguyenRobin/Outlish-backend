@@ -1,0 +1,60 @@
+extend type Mutation {
+  createCategory(input: CreateCategoryInput!): Category
+}
+
+extend type Query {
+  getAllCategories: [AllCategoriesResult]
+  getCategory(input: CategoryQuery!): CategoryResult
+}
+
+# input structure client must use
+input CategoryAndSubCategoryQuery {
+  category: String!
+  subCategory: String!
+}
+
+# input structure client must use
+input CreateCategoryInput {
+  category: String!
+  subCategory: String
+  subSubCategory: String
+}
+# input structure client must use
+input CategoryQuery {
+  category: String!
+  subCategory: String
+  subSubCategory: String
+}
+
+# Object structure
+type SubSubCategory {
+  name: String
+  slug: String
+}
+# Object structure
+type SubCategory {
+  name: String
+  slug: String
+  subSubCategory: [SubSubCategory]
+}
+
+# Result structure send back to client
+type AllCategoriesResult {
+  name: String
+  slug: String
+  subCategory: [SubCategory]
+}
+
+# Result structure send back to client
+type CategoryResult {
+  name: String
+  slug: String
+  subCategory: [SubCategory]
+}
+
+# Result structure send back to client
+type Category {
+  category: String
+  subCategory: String
+  subSubCategory: String
+}
