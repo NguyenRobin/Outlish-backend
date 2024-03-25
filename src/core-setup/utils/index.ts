@@ -14,7 +14,7 @@ export function slugifyString(str: string): string {
     .toLowerCase()
     .replace(/å|ä/g, "a")
     .replace(/ö/g, "o")
-    .replace(/&/g, "and")
+    .replace(/&/g, "och")
     .replaceAll(" ", "-");
 
   return slug;

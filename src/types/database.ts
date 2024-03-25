@@ -15,7 +15,7 @@ export type Product = {
   id: string;
 };
 
-// data structure response
+// data structure
 type Images = {
   image_xs: string;
   image_small: string;
@@ -43,7 +43,7 @@ export type ProductByCategory = {
   description: string;
   price: number;
   inventory: number;
-  image: string;
+  image: Images;
   category: string;
   subCategory?: string;
   subSubCategory?: string;
@@ -80,23 +80,25 @@ export type Category = {
   subCategory?: SubCategory[];
 };
 
+// data structure
 type SubCategory = {
   name?: string;
   slug?: string;
-  subSubCategory?: SubSubCategory;
+  subSubCategory?: SubSubCategory[];
 };
 
+// data structure
 type SubSubCategory = {
   name?: string;
   slug?: string;
 };
 
-// event.argument.id
+// event.argument.id from client
 export type ArgsInputID = {
   id: string;
 };
 
-// event.arguments.input
+// event.arguments.input from client
 export type ProductArgsInput = {
   input: {
     name?: string;
@@ -112,7 +114,7 @@ export type ProductArgsInput = {
   };
 };
 
-// event.arguments.input
+// event.arguments.input from client
 export type CategoryArgsInput = {
   input: {
     category: string;
