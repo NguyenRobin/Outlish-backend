@@ -1,8 +1,0 @@
-Mutation.createImage:
-  kind: UNIT
-  dataSource:
-    type: "AWS_LAMBDA"
-    config:
-      function:
-        timeout: 10
-        handler: "src/outlish-api/unit-resolvers/image/createImage.handler"

@@ -1,8 +1,8 @@
 import { db } from "@src/core-setup/services/db";
 import { generateId, slugifyString } from "@src/core-setup/utils";
-import type { ProductArgsInput, Slug } from "@src/types/database";
+import type { ProductArgsInput } from "@src/types/database";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
-import { addResizeImagesToS3Bucket } from "../image/createImage";
+import { addResizeImagesToS3Bucket } from "../../functions/addResizeImagesToS3Bucket";
 
 export const handler: AppSyncResolverHandler<
   ProductArgsInput,
@@ -27,8 +27,12 @@ export const handler: AppSyncResolverHandler<
       throw new Error("Properties missing");
     }
 
-    const test = await addResizeImagesToS3Bucket(image, name);
-    console.log("test from createProduct", test);
+    const objWithImageUrl = await addResizeImagesToS3Bucket(image, name);
+
+    if (!objWithImageUrl) {
+      throw new Error("Object url could not be generated");
+    }
+
     const slug = {
       name: slugifyString(name),
       category: slugifyString(category),
@@ -52,7 +56,7 @@ export const handler: AppSyncResolverHandler<
                 subSubCategory: subSubCategory ?? "",
                 name,
                 description,
-                image: test,
+                image: objWithImageUrl,
                 inventory,
                 price,
                 id: id,
@@ -72,7 +76,7 @@ export const handler: AppSyncResolverHandler<
                 subSubCategory: subSubCategory ?? "",
                 name,
                 description,
-                image: test,
+                image: objWithImageUrl,
                 inventory,
                 price,
                 id: id,
