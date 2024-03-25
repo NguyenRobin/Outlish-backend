@@ -1,6 +1,6 @@
 import { AppSyncResolverHandler, AppSyncResolverEvent } from "aws-lambda";
 import { db } from "@src/core-setup/services/db";
-import type { ArgsInputID, Product } from "@src/types/database";
+import type { ArgsInputID, Product } from "@src/types";
 
 export const handler: AppSyncResolverHandler<ArgsInputID, Product> = async (
   event: AppSyncResolverEvent<ArgsInputID>

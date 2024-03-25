@@ -1,6 +1,6 @@
 import { db } from "@src/core-setup/services/db";
-import { generateId, slugifyString } from "@src/core-setup/utils";
-import type { ProductArgsInput } from "@src/types/database";
+import { generateId, slugifyString } from "@src/utils";
+import type { ProductArgsInput } from "@src/types";
 import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
 import { addResizeImagesToS3Bucket } from "../../functions/addResizeImagesToS3Bucket";
 

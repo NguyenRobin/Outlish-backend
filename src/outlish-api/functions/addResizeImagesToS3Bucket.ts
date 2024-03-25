@@ -1,6 +1,6 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { S3_BUCKET } from "@src/core-setup/services/s3-bucket";
-import { generateId, slugifyString } from "@src/core-setup/utils";
+import { generateId, slugifyString } from "@src/utils";
 import sharp from "sharp";
 
 export async function addResizeImagesToS3Bucket(file: string, name: string) {

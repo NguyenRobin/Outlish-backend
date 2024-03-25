@@ -1,5 +1,5 @@
 import { db } from "@src/core-setup/services/db";
-import type { AllProducts } from "@src/types/database";
+import type { AllProducts } from "@src/types";
 import { AppSyncResolverHandler } from "aws-lambda";
 
 export const handler = async (): Promise<AllProducts | []> => {
