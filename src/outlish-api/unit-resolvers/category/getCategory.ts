@@ -1,21 +1,44 @@
 import { db } from "@src/core-setup/services/db";
 import { slugifyString } from "@src/core-setup/utils";
-import type { Category } from "@src/types/database";
-import { AppSyncResolverHandler } from "aws-lambda";
+import type { Category, CategoryArgsInput } from "@src/types/database";
+import { AppSyncResolverEvent, AppSyncResolverHandler } from "aws-lambda";
 
-export const handler: AppSyncResolverHandler<Event, Category> = async (
-  event: any
+export const handler: AppSyncResolverHandler<
+  CategoryArgsInput,
+  Category
+> = async (
+  event: AppSyncResolverEvent<CategoryArgsInput>
 ): Promise<Category> => {
   const { category, subCategory, subSubCategory } = event.arguments.input;
+
+  let sortKey;
+
+  if (category && subCategory && subSubCategory) {
+    sortKey = `category#${slugifyString(category)}#subCategory#${slugifyString(
+      subCategory
+    )}#subSubCategory#${slugifyString(subSubCategory)}`;
+  }
+
+  if (category && subCategory && !subSubCategory) {
+    sortKey = `category#${slugifyString(category)}#subCategory#${slugifyString(
+      subCategory
+    )}`;
+  }
+
+  if (category && !subCategory && !subSubCategory) {
+    sortKey = `category#${slugifyString(category)}`;
+  }
+
   try {
     const { Items } = await db.query({
       TableName: process.env.OUTLISH_TABLE,
       KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
       ExpressionAttributeValues: {
         ":PK": "category",
-        ":SK": `category#${category}`,
+        ":SK": sortKey,
       },
     });
+
     if (Items === undefined || !Items.length) {
       throw new Error("No Categories found");
     }

@@ -14,6 +14,7 @@ export const handler: AppSyncResolverHandler<
   event: AppSyncResolverEvent<CategoryArgsInput>
 ): Promise<ProductsByCategory> => {
   const { category, subCategory, subSubCategory } = event.arguments.input;
+  console.log(event);
 
   let products: Product[] = [];
 
@@ -23,7 +24,7 @@ export const handler: AppSyncResolverHandler<
         TableName: process.env.OUTLISH_TABLE,
         KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
         ExpressionAttributeValues: {
-          ":PK": `category#${category}`,
+          ":PK": `category#${slugifyString(category)}`,
           ":SK": `product#`,
         },
       });
@@ -42,7 +43,7 @@ export const handler: AppSyncResolverHandler<
         ExpressionAttributeValues: {
           ":PK": `category#${slugifyString(category)}`,
           ":SK": "product#",
-          ":subCategory": `${subCategory}`,
+          ":subCategory": `${slugifyString(subCategory)}`,
         },
       });
       products = Items as Product[];
@@ -52,14 +53,16 @@ export const handler: AppSyncResolverHandler<
       const { Items } = await db.query({
         TableName: process.env.OUTLISH_TABLE,
         KeyConditionExpression: "PK = :PK and begins_with(SK, :SK)",
-        FilterExpression: `slug.#subSubCategory = :subSubCategory`,
+        FilterExpression: `slug.#subCategory = :subCategory AND slug.#subSubCategory = :subSubCategory`,
         ExpressionAttributeNames: {
+          "#subCategory": "subCategory",
           "#subSubCategory": "subSubCategory",
         },
         ExpressionAttributeValues: {
           ":PK": `category#${slugifyString(category)}`,
           ":SK": "product#",
-          ":subSubCategory": `${subSubCategory}`,
+          ":subCategory": `${slugifyString(subCategory)}`,
+          ":subSubCategory": `${slugifyString(subSubCategory)}`,
         },
       });
       products = Items as Product[];
@@ -70,6 +73,8 @@ export const handler: AppSyncResolverHandler<
       result: products.length,
       products: products,
     };
+
+    console.log(result);
 
     return result;
   } catch (error) {

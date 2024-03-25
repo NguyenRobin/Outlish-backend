@@ -19,14 +19,22 @@ type Product {
   description: String
   price: Int
   inventory: Int
-  image: String
+  image: Images
   category: String
   subCategory: String
   subSubCategory: String
-  section: String
   id: String
   seller: String
   slug: Slug
+}
+
+# Object structure
+type Images {
+  image_xs: String
+  image_small: String
+  image_medium: String
+  image_large: String
+  image_original: String
 }
 
 # Object structure

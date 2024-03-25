@@ -2,7 +2,6 @@ import { db } from "@src/core-setup/services/db";
 import type { AllProducts } from "@src/types/database";
 import { AppSyncResolverHandler } from "aws-lambda";
 
-// Currently returns test data
 export const handler = async (): Promise<AllProducts | []> => {
   try {
     const { Items } = await db.query({

@@ -23,11 +23,17 @@ custom:
   esbuild:
     bundle: true
     minify: false
+    external:
+      - sharp
+    packagerOptions:
+      scripts:
+        - npm install --os=linux --cpu=x64 sharp
 
 appSync: ${file(src/outlish-api/appSync.yml)}
 
-resources: ${file(src/base-services/database/dynamoDB.yml)}
+resources:
+  - ${file(src/base-services/database/dynamoDB.yml)}
+  - ${file(src/base-services/s3-storage/s3.yml)}
 
 functions:
   - ${file(src/outlish-api/functions/authorizer/authorizer.yml)}
-  - ${file(src/outlish-api/functions/addTestProductsData/addTestProductsData.yml)}

@@ -1,4 +1,4 @@
-export function generateId(len = 5) {
+export function generateId(len = 8) {
   let id = "";
   let chars = "abcdefghijklmnopqrstuvqxyz1234567890";
   for (let i = 0; i < len; i++) {
@@ -14,7 +14,7 @@ export function slugifyString(str: string): string {
     .toLowerCase()
     .replace(/å|ä/g, "a")
     .replace(/ö/g, "o")
-    .replace(/&/g, "and")
+    .replace(/&/g, "och")
     .replaceAll(" ", "-");
 
   return slug;
