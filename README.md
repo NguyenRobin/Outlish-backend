@@ -7,3 +7,5 @@
 
 encode a image to a base64 string
 https://www.base64-image.de/
+
+# FRONTEND CODE -> https://github.com/P156HAM/Outlish
